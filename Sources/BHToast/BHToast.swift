@@ -26,7 +26,7 @@ import UIKit
 //}
 
 public class BHToast: UIViewController {
-    func showBHToast(message : String, font: UIFont = UIFont.systemFont(ofSize: 14.0)) {
+    public func showBHToast(message : String, font: UIFont = UIFont.systemFont(ofSize: 14.0)) {
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
