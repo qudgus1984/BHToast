@@ -77,7 +77,6 @@ open class BHToast: UIView {
     private var lineView: UIView!
 
     private var titleText: String?
-    private var completion: (() -> Void)?
 
     public convenience init(title: String) {
         self.init(frame: CGRect.zero)
@@ -135,11 +134,5 @@ open class BHToast: UIView {
         lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         lineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-    }
-
-    @objc
-    private func confirmAction() {
-        self.removeFromSuperview()
-        completion?()
     }
 }
