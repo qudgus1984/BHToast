@@ -20,7 +20,9 @@ extension BHToast {
     private func configureLayout(_ rootView: UIView) {
         rootView.addSubview(self)
         self.addSubview(toastView)
-        toastView.addSubview(message)
+        [message].forEach {
+            toastView.addSubview($0)
+        }
     }
     
     private func setConstraints(_ rootView: UIView) {
@@ -35,7 +37,6 @@ extension BHToast {
         toastView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1).isActive = true
         toastView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8).isActive = true
 
-        toastView.addSubview(message)
         message.topAnchor.constraint(equalTo: toastView.topAnchor, constant: 0).isActive = true
         message.leadingAnchor.constraint(equalTo: toastView.leadingAnchor, constant: 0).isActive = true
         message.trailingAnchor.constraint(equalTo: toastView.trailingAnchor, constant: 0).isActive = true
