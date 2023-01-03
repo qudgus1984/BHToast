@@ -1,20 +1,38 @@
 import UIKit
 
 open class BHToast: UIView {
-    private let toastView = UIView()
+    private var toastView = UIView()
     private var message = UILabel()
     
-    public convenience init(message: UILabel = UILabel()) {
+    private var messageText: String?
+    
+    public convenience init(text: String, message: UILabel = UILabel()) {
         self.init(frame: CGRect.zero)
         self.message = message
+        self.messageText = text
+    }
+    
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        toastView = UIView()
+        message = UILabel()
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        toastView.translatesAutoresizingMaskIntoConstraints = false
+        message.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
 extension BHToast {
-    public func showBHToast(text: String) {
-        setAttribute(text: text)
-        configureLayout(toastView)
-        setConstraints(toastView)
+    public func showBHToast(in rootView: UIView) {
+        setAttribute()
+        configureLayout(rootView)
+        setConstraints(rootView)
     }
     
     private func configureLayout(_ rootView: UIView) {
@@ -43,12 +61,12 @@ extension BHToast {
         message.bottomAnchor.constraint(equalTo: toastView.bottomAnchor, constant: 0).isActive = true
     }
     
-    public func setAttribute(text: String) {
+    public func setAttribute() {
         message.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         message.textColor = UIColor.white
         message.font = UIFont.systemFont(ofSize: 14)
         message.textAlignment = .center;
-        message.text = text
+        message.text = messageText
         message.alpha = 1.0
         message.layer.cornerRadius = 10;
         message.clipsToBounds  =  true
