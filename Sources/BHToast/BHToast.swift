@@ -1,12 +1,5 @@
 import UIKit
 
-/*
-public enum BHToastStyle {
-    case basic
-    case long
-    case short
-}
-
 open class BHToast: UIView {
     private let toastView = UIView()
     private var message = UILabel()
@@ -18,10 +11,10 @@ open class BHToast: UIView {
 }
 
 extension BHToast {
-    public func showBHToast(_ rootView: UIView, text: String, font: UIFont, Style: BHToastStyle) {
-        setAttribute(text: text, font: font)
-        configureLayout(rootView)
-        setConstraints(rootView, Style: Style)
+    public func showBHToast(text: String) {
+        setAttribute(text: text)
+        configureLayout(toastView)
+        setConstraints(toastView)
     }
     
     private func configureLayout(_ rootView: UIView) {
@@ -30,24 +23,25 @@ extension BHToast {
         toastView.addSubview(message)
     }
     
-    private func setConstraints(_ rootView: UIView, Style: BHToastStyle) {
-        switch Style {
-        case .basic:
-            self.message = UILabel(frame: CGRect(x: rootView.frame.size.width/2 - 75, y: rootView.frame.size.height-100, width: 150, height: 35))
-            
-        case .long:
-            self.message = UILabel(frame: CGRect(x: rootView.frame.size.width/2 - 75, y: rootView.frame.size.height-100, width: 200, height: 35))
+    private func setConstraints(_ rootView: UIView) {
+        
+        self.topAnchor.constraint(equalTo: rootView.topAnchor).isActive = true
+        self.leadingAnchor.constraint(equalTo: rootView.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: rootView.trailingAnchor).isActive = true
+        self.bottomAnchor.constraint(equalTo: rootView.bottomAnchor).isActive = true
+        
+        toastView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        toastView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        toastView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1).isActive = true
+        toastView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8).isActive = true
 
-        case .short:
-            self.message = UILabel(frame: CGRect(x: rootView.frame.size.width/2 - 75, y: rootView.frame.size.height-100, width: 100, height: 35))
-
-        }
+        self.message = UILabel(frame: CGRect(x: rootView.frame.size.width/2 - 75, y: rootView.frame.size.height-100, width: 150, height: 35))
     }
     
-    public func setAttribute(text: String, font: UIFont) {
+    public func setAttribute(text: String) {
         message.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         message.textColor = UIColor.white
-        message.font = font
+        message.font = UIFont.systemFont(ofSize: 14)
         message.textAlignment = .center;
         message.text = text
         message.alpha = 1.0
@@ -61,78 +55,4 @@ extension BHToast {
         })
     }
 }
-*/
 
-@available(iOS 13.0, *)
-
-public enum BHToastStyle {
-    case basic
-    case long
-    case short
-}
-
-open class BHToast: UIView {
-    private var contentView: UIView!
-    private var titleLabel: UILabel!
-    private var lineView: UIView!
-
-    private var titleText: String?
-
-    public convenience init(title: String) {
-        self.init(frame: CGRect.zero)
-        self.titleText = title
-    }
-
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-
-        contentView = UIView()
-        titleLabel = UILabel()
-        lineView = UIView()
-
-        self.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        lineView.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    open func setAttribute() {
-        self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-
-        contentView.layer.cornerRadius = 14.0
-        contentView.backgroundColor = .white
-
-        lineView.backgroundColor = .lightGray
-
-        titleLabel.text = titleText ?? "Title"
-    }
-
-    open func show(in superview: UIView) {
-        setAttribute()
-
-        superview.addSubview(self)
-        self.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-        self.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-        self.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-        self.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-
-        self.addSubview(contentView)
-        contentView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        contentView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        contentView.heightAnchor.constraint(equalToConstant: 150.0).isActive = true
-        contentView.widthAnchor.constraint(equalToConstant: 270.0).isActive = true
-
-        contentView.addSubview(titleLabel)
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50.0).isActive = true
-
-        contentView.addSubview(lineView)
-        lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        lineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-    }
-}

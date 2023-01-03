@@ -17,10 +17,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func actionAlert(_ sender: Any) {
-        if #available(iOS 13.0, *) {
-            BHToast(title: "와 이게 되네", confirm: "확인버튼도 커스텀할 수 있네") {
-                print("completion handler 까지!?!")
-            }.show(in: self.view)
+        if #available(iOS 13.0, *) { 
         } else {
             // Fallback on earlier versions
         }
