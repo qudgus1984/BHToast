@@ -35,7 +35,11 @@ extension BHToast {
         toastView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1).isActive = true
         toastView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8).isActive = true
 
-        self.message = UILabel(frame: CGRect(x: rootView.frame.size.width/2 - 75, y: rootView.frame.size.height-100, width: 150, height: 35))
+        toastView.addSubview(message)
+        message.topAnchor.constraint(equalTo: toastView.topAnchor, constant: 0).isActive = true
+        message.leadingAnchor.constraint(equalTo: toastView.leadingAnchor, constant: 0).isActive = true
+        message.trailingAnchor.constraint(equalTo: toastView.trailingAnchor, constant: 0).isActive = true
+        message.bottomAnchor.constraint(equalTo: toastView.bottomAnchor, constant: 0).isActive = true
     }
     
     public func setAttribute(text: String) {
